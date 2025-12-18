@@ -18,7 +18,6 @@ import yfinance as yf
 # Database Connector
 import mysql.connector
 
-
 # Machine Learning Library
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
