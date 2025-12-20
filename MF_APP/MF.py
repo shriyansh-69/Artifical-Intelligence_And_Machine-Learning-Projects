@@ -1038,6 +1038,7 @@ with st.expander("🧠 NeuralTicker", expanded=False):
             user=mysql_config["user"],
             password=mysql_config["password"],
             database=mysql_config["database"]
+            
         )
         cursor = conn.cursor()
 
