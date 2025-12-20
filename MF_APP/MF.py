@@ -1017,7 +1017,7 @@ with st.expander("💹 Graph Plotter On Selected Day's", expanded=False):
 # --------------------------------------------------------------- Block-7 ------------------------------------------------------------------
 
 
-# --- Expander for LSTM Prediction ---
+# # --- Expander for LSTM Prediction ---
 # with st.expander("🧠 NeuralTicker", expanded=False):
 
 #     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)  # adds top spacing
