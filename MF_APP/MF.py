@@ -1037,8 +1037,7 @@ with st.expander("🧠 NeuralTicker", expanded=False):
             port=mysql_config["port"],
             user=mysql_config["user"],
             password=mysql_config["password"],
-            database=mysql_config["database"]
-            
+            database=mysql_config["database"]            
         )
         cursor = conn.cursor()
 
