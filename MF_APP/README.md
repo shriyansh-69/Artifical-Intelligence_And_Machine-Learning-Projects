@@ -19,13 +19,13 @@ A Streamlit web app that predicts the future price/NAV of mutual funds and allow
 
 ---
 
-## Screenshots
+<!-- ## Screenshots
 
 ![Home Page](screenshots/home.png)
 ![Prediction Result](screenshots/prediction.png)
 ![Historical Price Checker](screenshots/historical.png)
 
-*(Tip: Save screenshots in a `screenshots/` folder in your repo)*
+*(Tip: Save screenshots in a `screenshots/` folder in your repo)* -->
 
 ---
 
