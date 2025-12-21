@@ -1023,7 +1023,7 @@ with st.expander("🧠 NeuralTicker", expanded=False):
 
     # Input Panel
     ticker = st.text_input("Yahoo Finance Ticker", value="INFY.NS")
-    sequence_length = 30
+    sequence_length = 90
     n_future = 30
 
     @st.cache_data(show_spinner=True)
