@@ -49,10 +49,15 @@ def get_current_price(fund_ticker):
     try:
         fund = yf.Ticker(fund_ticker)
         data = fund.history(period="1d")
+
         if not data.empty:
-            return data['Close'].iloc[-1]
-        else:
-            return "No Data Is Available For This Ticker"
+            return None,None
+        
+        price = data["Close"].iloc[-1]
+        currency = fund.info.get("currency","unknown")
+
+        return price,currency
+
     except Exception as e:
         return f"Error: {e}"
 
@@ -65,12 +70,17 @@ with st.expander("📌 Mutual Fund / Current Price Checker", expanded=False):
 
     if st.button("Get Price"):
         if ticker:
-            price = get_current_price(ticker.upper())
-            st.write(
-                f"The Current Price/NAV of **{ticker.upper()}** is: **{price}**"
-            )
+            price,currency = get_current_price(ticker.upper())
+
+            if price is None:
+                st.error("No data available for this ticker.")
+            else :
+                st.success(
+                    f"The current NAV of **{ticker.upper()}** is "
+                    f"**{price:.2f} {currency}**"
+                )
         else:
-            st.warning("That's an invalid name")
+            st.warning("Please enter a valid ticker Name ")
 
 
 # ---------------------------------------------------------------Block-2------------------------------------------------------------------
