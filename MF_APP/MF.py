@@ -329,7 +329,7 @@ with st.expander("📊 Mutual Fund Analyzer For Recent Day's ", expanded=False):
             fig.savefig(buf_png, format="png")
             buf_png.seek(0)
             st.download_button(
-                "📥 Download Plot (PNG)",
+                "Download Plot (PNG)",
                 data=buf_png,
                 file_name=f"{Fund_name}_{plot_price_type_selected}_plot.png",
                 mime="image/png"
@@ -340,7 +340,7 @@ with st.expander("📊 Mutual Fund Analyzer For Recent Day's ", expanded=False):
             fig.savefig(buf_pdf, format="pdf")
             buf_pdf.seek(0)
             st.download_button(
-                "🗂️ Download Plot (PDF)",
+                "Download Plot (PDF)",
                 data=buf_pdf,
                 file_name=f"{Fund_name}_{plot_price_type_selected}_plot.pdf",
                 mime="application/pdf"
@@ -352,7 +352,7 @@ with st.expander("📊 Mutual Fund Analyzer For Recent Day's ", expanded=False):
             if n_day is not None:
                 data = data.tail(n_day)
             st.download_button(
-                "⬇️ Download Plot Data (CSV)",
+                "Download Plot Data (CSV)",
                 data=data[[plot_price_type_selected]].to_csv().encode(),
                 file_name=f"{Fund_name}_{plot_price_type_selected}_data.csv",
                 mime="text/csv"
@@ -365,7 +365,7 @@ with st.expander("📊 Mutual Fund Analyzer For Recent Day's ", expanded=False):
             else:
                 st.dataframe(data, use_container_width=True)
                 st.download_button(
-                    "⬇️ Download Raw Data (CSV)",
+                    "Download Raw Data (CSV)",
                     data=data.to_csv(index=True).encode("utf-8"),
                     file_name=f"{Fund_name}_raw_data.csv",
                     mime="text/csv"
@@ -529,7 +529,7 @@ with st.expander("📈 Mutual Fund Analyzer For Selected Date's", expanded=False
 
                 csv = result.to_csv().encode()
                 st.download_button(
-                    "📥 Download Results as CSV",
+                    " Download Results as CSV",
                     data=csv,
                     file_name=f"{Fund_name}_{start_str}_to_{end_str}_results.csv",
                     mime="text/csv"
@@ -572,7 +572,7 @@ with st.expander("📈 Mutual Fund Analyzer For Selected Date's", expanded=False
                     fig.savefig(buf_png, format="png")
                     buf_png.seek(0)
                     st.download_button(
-                        "📥 Download Plot (PNG)",
+                        "Download Plot (PNG)",
                         data=buf_png,
                         file_name=f"{Fund_name}_{plot_price_type_choice}_plot.png",
                         mime="image/png"
@@ -583,7 +583,7 @@ with st.expander("📈 Mutual Fund Analyzer For Selected Date's", expanded=False
                     fig.savefig(buf_pdf, format="pdf")
                     buf_pdf.seek(0)
                     st.download_button(
-                        "🗂️ Download Plot (PDF)",
+                        "Download Plot (PDF)",
                         data=buf_pdf,
                         file_name=f"{Fund_name}_{plot_price_type_choice}_plot.pdf",
                         mime="application/pdf"
@@ -592,7 +592,7 @@ with st.expander("📈 Mutual Fund Analyzer For Selected Date's", expanded=False
                     # CSV
                     csv_data = data_for_download[[plot_column]].to_csv().encode()
                     st.download_button(
-                        "⬇️ Download Data (CSV)",
+                        "Download Data (CSV)",
                         data=csv_data,
                         file_name=f"{Fund_name}_{plot_price_type_choice}_data.csv",
                         mime="text/csv"
@@ -623,7 +623,7 @@ with st.expander("📈 Mutual Fund Analyzer For Selected Date's", expanded=False
                                 # Download button
                                 raw_csv = df_raw.to_csv(index=True).encode("utf-8")
                                 st.download_button(
-                                    label="⬇️ Download Selected Days Data (CSV)",
+                                    label="Download Selected Days Data (CSV)",
                                     data=raw_csv,
                                     file_name=f"{Fund_name}_raw_data_{start_date}_{end_date}.csv",
                                     mime="text/csv"
@@ -767,7 +767,7 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
                 # CSV download
                 csv = df_analysis.to_csv(index=False).encode()
                 st.download_button(
-                    "📥 Download Buy-Sell Analysis as CSV",
+                    "Download Buy-Sell Analysis as CSV",
                     data=csv,
                     file_name=f"{Fund_name}_buy_sell_analysis.csv",
                     mime="text/csv"
@@ -807,7 +807,7 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
                     fig.savefig(buf_png, format="png")
                     buf_png.seek(0)
                     st.download_button(
-                        "📥 Download Plot (PNG)",
+                        "Download Plot (PNG)",
                         data=buf_png,
                         file_name=f"{Fund_name}_{price_type}_plot.png",
                         mime="image/png"
@@ -818,7 +818,7 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
                     fig.savefig(buf_pdf, format="pdf")
                     buf_pdf.seek(0)
                     st.download_button(
-                        "🗂️ Download Plot (PDF)",
+                        "Download Plot (PDF)",
                         data=buf_pdf,
                         file_name=f"{Fund_name}_{price_type}_plot.pdf",
                         mime="application/pdf"
@@ -827,7 +827,7 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
                     # CSV
                     csv_data = df_prepare[[price_type]].to_csv().encode()
                     st.download_button(
-                        "⬇️ Download Plot Data (CSV)",
+                        " Download Plot Data (CSV)",
                         data=csv_data,
                         file_name=f"{Fund_name}_{price_type}_data.csv",
                         mime="text/csv"
@@ -854,7 +854,7 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
                     # Download filtered raw data
                     raw_csv = filtered_df.to_csv(index=True).encode("utf-8")
                     st.download_button(
-                        label="⬇️ Download Selected Days Data (CSV)",
+                        label="Download Selected Days Data (CSV)",
                         data=raw_csv,
                         file_name=f"{Fund_name}_raw_data_{start_date}_{end_date}.csv",
                         mime="text/csv"
@@ -972,7 +972,7 @@ with st.expander("💹 Graph Plotter On Selected Day's", expanded=False):
                     fig.savefig(buf_png, format="png")
                     buf_png.seek(0)
                     st.download_button(
-                        "📥 Download Plot (PNG)",
+                        " Download Plot (PNG)",
                         data=buf_png,
                         file_name=f"{f_name}_{price_type}_plot.png",
                         mime="image/png"
@@ -983,7 +983,7 @@ with st.expander("💹 Graph Plotter On Selected Day's", expanded=False):
                     fig.savefig(buf_pdf, format="pdf")
                     buf_pdf.seek(0)
                     st.download_button(
-                        "🗂️ Download Plot (PDF)",
+                        " Download Plot (PDF)",
                         data=buf_pdf,
                         file_name=f"{f_name}_{price_type}_plot.pdf",
                         mime="application/pdf"
@@ -992,7 +992,7 @@ with st.expander("💹 Graph Plotter On Selected Day's", expanded=False):
                     # CSV
                     csv_data = df_ready[[price_type]].to_csv().encode()
                     st.download_button(
-                        "⬇️ Download Plot Data (CSV)",
+                        "Download Plot Data (CSV)",
                         data=csv_data,
                         file_name=f"{f_name}_{price_type}_data.csv",
                         mime="text/csv"
@@ -1221,7 +1221,7 @@ with st.expander("🧠 NeuralTicker", expanded=False):
                 buf_png = io.BytesIO()
                 fig.savefig(buf_png, format="png")
                 st.download_button(
-                    label="📥 Download Plot (PNG)",
+                    label="Download Plot (PNG)",
                     data=buf_png,
                     file_name=f"{ticker}_Prediction.png",
                     mime='image/png',
@@ -1234,7 +1234,7 @@ with st.expander("🧠 NeuralTicker", expanded=False):
                 fig.savefig(buf_pdf, format="pdf")
                 buf_pdf.seek(0)
                 st.download_button(
-                    label="🗂️ Download Plot (PDF)",
+                    label="Download Plot (PDF)",
                     data=buf_pdf,
                     file_name=f"{ticker}_Prediction.pdf",
                     mime='application/pdf',
@@ -1244,7 +1244,7 @@ with st.expander("🧠 NeuralTicker", expanded=False):
                 # Optional CSV for future prices without index
                 csv_data_simple = future_df.to_csv(index=False).encode()
                 st.download_button(
-                    label="⬇️ Download Predicted Prices (CSV, no index)",
+                    label="Download Predicted Prices (CSV, no index)",
                     data=csv_data_simple,
                     file_name=f"{ticker}_Prediction.csv",
                     mime='text/csv',
@@ -1321,7 +1321,7 @@ with st.expander("📊 Column Operations on Predicted Data", expanded=False):
 
             # --- Download button outside the form ---
             st.download_button(
-                "📥 Download Summary as CSV",
+                "Download Summary as CSV",
                 data=csv_data,
                 file_name="predicted_summary.csv",
                 mime="text/csv",
