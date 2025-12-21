@@ -97,21 +97,25 @@ with st.expander("📅 Get Price on Specific Date", expanded=False):
             if data.empty:
                 return None, None, None
 
-            # Ensure target_date is Timestamp
-            target_date = pd.Timestamp(target_date)
+            # Convert index to date only (remove timestamp)
+            data.index = data.index.date
+
+            # Convert target_date to datetime.date
+            target_date = pd.Timestamp(target_date).date()
 
             if target_date in data.index:
                 price = data.loc[target_date, "Close"]
                 actual_date = target_date
             else:
-                data_before = data.loc[:target_date]
+                # Get nearest previous date
+                data_before = data.loc[data.index <= target_date]
                 if data_before.empty:
                     return None, None, None
                 actual_date = data_before.index[-1]
-                price = data_before.iloc[-1]["Close"]
+                price = data_before.loc[actual_date, "Close"]
 
             currency = fund.info.get("currency", "Unknown")
-            return price, actual_date.date(), currency
+            return price, actual_date, currency
 
         except Exception:
             return None, None, None
@@ -135,7 +139,6 @@ with st.expander("📅 Get Price on Specific Date", expanded=False):
                     f"Price/NAV of **{fund_name}** on **{actual_date}** is "
                     f"**{price:.2f} {currency}**"
                 )
-
 #------------------------------------Block-3------------------------------------------------------------------
 
 def Information_Of_Selected_Day(Fund_name, price_type, n_day, operation=None):
