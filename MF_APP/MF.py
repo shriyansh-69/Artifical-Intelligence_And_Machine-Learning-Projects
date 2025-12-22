@@ -860,17 +860,46 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
         st.pyplot(fig)
 
         with st.expander("💾 Download Plot"):
+            # PNG
             buf = io.BytesIO()
             fig.savefig(buf, format="png")
             buf.seek(0)
-
             st.download_button(
                 "Download Plot (PNG)",
                 data=buf,
                 file_name=f"{ticker}_{price_type}_plot.png",
                 mime="image/png",
                 key="plot_png"
+            ) 
+
+            # PDF
+            buf_pdf = io.BytesIO()
+            fig.savefig(buf_pdf, format="pdf")
+            buf_pdf.seek(0)
+            st.download_button(
+                "Download Plot (PDF)",
+                data=buf_pdf,
+                file_name=f"{ticker}_{price_type}_plot.pdf",
+                mime="application/pdf"
             )
+
+            # CSV
+            csv_data = st.session_state.price_df.loc[
+                st.session_state.analysis_result["actual_buy"] : st.session_state.analysis_result["actual_sell"],
+                [price_type]
+            ].to_csv().encode()
+
+            st.download_button(
+                "Download Plot Data (CSV)",
+                data=csv_data,
+                file_name=f"{ticker}_{price_type}_data.csv",
+                mime="text/csv"
+            )
+
+            
+
+
+
 
 
 #-------------------------------------------------------------------------- Block - 6 -------------------------------------------------------------------------------------
