@@ -95,6 +95,10 @@ with st.expander("📌 Mutual Fund / Current Price Checker", expanded=False):
 
 # ---------------------------------------------------------------Block-2------------------------------------------------------------------
 
+import streamlit as st
+import yfinance as yf
+import pandas as pd
+
 def get_price_on_date(fund_ticker, target_date):
     try:
         fund = yf.Ticker(fund_ticker)
@@ -106,21 +110,18 @@ def get_price_on_date(fund_ticker, target_date):
         # Convert index to date only (remove timestamp)
         data.index = data.index.date
 
-        # Convert target_date to datetime.date
         target_date = pd.Timestamp(target_date).date()
 
         if target_date in data.index:
             price = data.loc[target_date, "Close"] if "Close" in data else data.loc[target_date, "Adj Close"]
             actual_date = target_date
         else:
-            # Get nearest previous date
             data_before = data.loc[data.index <= target_date]
             if data_before.empty:
                 return None, None, None
             actual_date = data_before.index[-1]
             price = data_before.loc[actual_date, "Close"] if "Close" in data_before else data_before.loc[actual_date, "Adj Close"]
 
-        # Get currency reliably
         currency = data.attrs.get("currency")
         if currency is None:
             currency = fund.fast_info.get("currency", "Unknown")
@@ -130,29 +131,38 @@ def get_price_on_date(fund_ticker, target_date):
     except Exception:
         return None, None, None
 
-# ---------- Streamlit Expander ----------
+# Streamlit expander
 with st.expander("📅 Get Price on Specific Date", expanded=False):
     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
 
-    # Use unique keys to avoid duplicate widget IDs
-    fund_ticker = st.text_input(
-        "Enter Fund Ticker (e.g. VTSAX, HDFCEQUTI.NS)", key="historical_price_input"
-    ).upper()
+    # Text input with key
+    fund_ticker_input = st.text_input(
+        "Enter Fund Ticker (e.g. VTSAX, HDFCEQUTI.NS)",
+        key="historical_price_input"
+    )
+    fund_ticker = fund_ticker_input.strip().upper()
+
     selected_date = st.date_input(
-        "Select the Date:", key="historical_date_input"
+        "Select the Date:",
+        key="historical_date_input"
     )
 
-    if st.button("Get Price", key="historical_price_button", disabled=not fund_ticker):
-        with st.spinner("Fetching price..."):
-            price, actual_date, currency = get_price_on_date(fund_ticker, selected_date)
-
-        if price is None:
-            st.error("No data available for this ticker/date.")
+    # Button always shows
+    if st.button("Get Price", key="historical_price_button"):
+        if not fund_ticker:
+            st.warning("Please enter a valid fund ticker!")
         else:
-            st.success(
-                f"The price of **{fund_ticker}** on **{actual_date}** is "
-                f"**{price:.2f} {currency}**"
-            )
+            with st.spinner("Fetching price..."):
+                price, actual_date, currency = get_price_on_date(fund_ticker, selected_date)
+
+            if price is None:
+                st.error("No data available for this ticker/date.")
+            else:
+                st.success(
+                    f"The price of **{fund_ticker}** on **{actual_date}** is "
+                    f"**{price:.2f} {currency}**"
+                )
+
 
 #------------------------------------Block-3------------------------------------------------------------------
 
