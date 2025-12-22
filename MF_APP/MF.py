@@ -50,15 +50,15 @@ def get_current_price(fund_ticker):
         fund = yf.Ticker(fund_ticker)
         data = fund.history(period="1d")
 
-        if  data.empty:
-            return None,None
-        
-        price = data["Close"].iloc[-1]
-        currency = fund.info.get("currency","unknown")
+        if data.empty:
+            return None, None
 
-        return price,currency
+        price = data["Close"].iloc[-1] if "Close" in data else data["Adj Close"].iloc[-1]
+        currency = data.attrs.get("currency", "unknown")
 
-    except Exception as e:
+        return price, currency
+
+    except Exception:
         return None, None
 
 # -------- EXPANDER ----------
