@@ -95,60 +95,60 @@ with st.expander("📌 Mutual Fund / Current Price Checker", expanded=False):
 
 # ---------------------------------------------------------------Block-2------------------------------------------------------------------
 
-with st.expander("📅 Get Price on Specific Date", expanded=False):
+def get_price_on_date(fund_ticker, target_date):
+    try:
+        fund = yf.Ticker(fund_ticker)
+        data = fund.history(period="max")
 
-    st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
-
-    def get_price_on_date(fund_ticker, target_date):
-        try:
-            fund = yf.Ticker(fund_ticker)
-            data = fund.history(period="max")
-
-            if data.empty:
-                return None, None, None
-
-            # Convert index to date only (remove timestamp)
-            data.index = data.index.date
-
-            # Convert target_date to datetime.date
-            target_date = pd.Timestamp(target_date).date()
-
-            if target_date in data.index:
-                price = data.loc[target_date, "Close"]
-                actual_date = target_date
-            else:
-                # Get nearest previous date
-                data_before = data.loc[data.index <= target_date]
-                if data_before.empty:
-                    return None, None, None
-                actual_date = data_before.index[-1]
-                price = data_before.loc[actual_date, "Close"]
-
-            currency = fund.info.get("currency", "Unknown")
-            return price, actual_date, currency
-
-        except Exception:
+        if data.empty:
             return None, None, None
 
-    fund_name = st.text_input("Enter Fund/Ticker:").upper()
+        # Convert index to date only (remove timestamp)
+        data.index = data.index.date
+
+        # Convert target_date to datetime.date
+        target_date = pd.Timestamp(target_date).date()
+
+        if target_date in data.index:
+            price = data.loc[target_date, "Close"] if "Close" in data else data.loc[target_date, "Adj Close"]
+            actual_date = target_date
+        else:
+            # Get nearest previous date
+            data_before = data.loc[data.index <= target_date]
+            if data_before.empty:
+                return None, None, None
+            actual_date = data_before.index[-1]
+            price = data_before.loc[actual_date, "Close"] if "Close" in data_before else data_before.loc[actual_date, "Adj Close"]
+
+        # Try to get currency reliably
+        currency = data.attrs.get("currency")
+        if currency is None:
+            currency = fund.fast_info.get("currency", "Unknown")
+
+        return price, actual_date, currency
+
+    except Exception:
+        return None, None, None
+
+
+with st.expander("📅 Get Price on Specific Date", expanded=False):
+    st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
+
+    fund_ticker = st.text_input("Enter Fund Ticker (e.g. VTSAX, HDFCEQUTI.NS)").upper()
     selected_date = st.date_input("Select the Date:")
 
-    if st.button("Get Price on Date"):
-        if not fund_name:
-            st.error("Please enter a valid fund name.")
+    if st.button("Get Price", disabled=not fund_ticker):
+        with st.spinner("Fetching price..."):
+            price, actual_date, currency = get_price_on_date(fund_ticker, selected_date)
+
+        if price is None:
+            st.error("No data available for this ticker/date.")
         else:
-            price, actual_date, currency = get_price_on_date(fund_name, selected_date)
+            st.success(
+                f"The price of **{fund_ticker}** on **{actual_date}** is "
+                f"**{price:.2f} {currency}**"
+            )
 
-            if price is None:
-                st.error("No data available for this fund/date.")
-            else:
-                if actual_date != selected_date:
-                    st.info(f"No data on selected date. Showing nearest available date.")
-
-                st.success(
-                    f"Price/NAV of **{fund_name}** on **{actual_date}** is "
-                    f"**{price:.2f} {currency}**"
-                )
 #------------------------------------Block-3------------------------------------------------------------------
 
 def Information_Of_Selected_Day(Fund_name, price_type, n_day, operation=None):
