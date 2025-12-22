@@ -271,7 +271,7 @@ with st.expander("📊 Mutual Fund Analyzer For Recent Day's ", expanded=False):
     )
 
     # ---------------- ANALYSIS ----------------
-    if st.button("📊 Get Analysis"):
+    if st.button("Get Analysis"):
         if not Fund_name:
             st.error("Please enter a ticker.")
         else:
@@ -295,7 +295,7 @@ with st.expander("📊 Mutual Fund Analyzer For Recent Day's ", expanded=False):
             )
 
             if isinstance(result, pd.DataFrame):
-                st.subheader("📋 Analysis Result")
+                st.subheader("Analysis Result")
                 st.dataframe(result)
 
                 csv = result.to_csv().encode()
@@ -317,7 +317,7 @@ with st.expander("📊 Mutual Fund Analyzer For Recent Day's ", expanded=False):
         key="plot_only"
     )
 
-    if st.button("📈 Show Plot"):
+    if st.button("Show Plot"):
         # Convert days safely
         if n_day_input.lower() == "all":
             n_day = None
@@ -526,7 +526,7 @@ with st.expander("📈 Mutual Fund Analyzer For Selected Date's", expanded=False
     st.divider()
 
     # ---------------- ANALYSIS ----------------
-    if st.button("📊 Get Results", key="btn_results_op"):
+    if st.button("Get Results", key="btn_results_op"):
         if not Fund_name:
             st.error("Please enter a valid ticker.")
         else:
@@ -564,7 +564,7 @@ with st.expander("📈 Mutual Fund Analyzer For Selected Date's", expanded=False
         key="plot_price_type"
     )
 
-    if st.button("📈 Show Plot", key="btn_plot"):
+    if st.button("Show Plot", key="btn_plot"):
         if not Fund_name:
             st.error("Please enter a valid ticker.")
         else:
@@ -742,7 +742,7 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
     st.divider()
 
     # ---------------- ANALYSIS ----------------
-    if st.button("📊 Analyze", key="analyze_btn"):
+    if st.button("Analyze", key="analyze_btn"):
         if not Fund_name:
             st.error("Please enter a valid ticker/fund name.")
         else:
@@ -796,7 +796,7 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
     st.divider()
 
     # ---------------- PLOT ----------------
-    if st.button("📈 Show Plot", key="plot_btn"):
+    if st.button("Show Plot", key="plot_btn"):
         if not Fund_name:
             st.error("Please enter a valid ticker/fund name.")
         else:
@@ -955,7 +955,7 @@ with st.expander("💹 Graph Plotter On Selected Day's", expanded=False):
             )
 
             # --- Plot ---
-            st.subheader("📊 Price Chart")
+            st.subheader("Price Chart")
             fig, ax = plt.subplots(figsize=(14, 6))
             ax.plot(
                 df_ready.index,
@@ -1285,7 +1285,10 @@ with st.expander("🧠 NeuralTicker", expanded=False):
                 mime='text/csv'
             )
                 
-                    
+
+# --------------------------------------------------------------- Block - 8 ------------------------------------------------------------------
+
+
 #--- Analysis Section ---
 with st.expander("📊 Column Operations on Predicted Data", expanded=False):
     if 'future_df' not in st.session_state:
@@ -1302,7 +1305,7 @@ with st.expander("📊 Column Operations on Predicted Data", expanded=False):
             operation = st.multiselect(
                 "Select Operation:", ["Lowest", "Highest", "Average", "All"], default=["All"]
             )
-            submitted = st.form_submit_button("Compute Summary")
+            submitted = st.form_submit_button("Analyze Predicted Data")
 
             df = get_fund_data(ticker)
 
