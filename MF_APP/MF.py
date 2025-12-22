@@ -120,7 +120,7 @@ def get_price_on_date(fund_ticker, target_date):
             actual_date = data_before.index[-1]
             price = data_before.loc[actual_date, "Close"] if "Close" in data_before else data_before.loc[actual_date, "Adj Close"]
 
-        # Try to get currency reliably
+        # Get currency reliably
         currency = data.attrs.get("currency")
         if currency is None:
             currency = fund.fast_info.get("currency", "Unknown")
@@ -130,14 +130,19 @@ def get_price_on_date(fund_ticker, target_date):
     except Exception:
         return None, None, None
 
-
+# ---------- Streamlit Expander ----------
 with st.expander("📅 Get Price on Specific Date", expanded=False):
     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
 
-    fund_ticker = st.text_input("Enter Fund Ticker (e.g. VTSAX, HDFCEQUTI.NS)").upper()
-    selected_date = st.date_input("Select the Date:")
+    # Use unique keys to avoid duplicate widget IDs
+    fund_ticker = st.text_input(
+        "Enter Fund Ticker (e.g. VTSAX, HDFCEQUTI.NS)", key="historical_price_input"
+    ).upper()
+    selected_date = st.date_input(
+        "Select the Date:", key="historical_date_input"
+    )
 
-    if st.button("Get Price", disabled=not fund_ticker):
+    if st.button("Get Price", key="historical_price_button", disabled=not fund_ticker):
         with st.spinner("Fetching price..."):
             price, actual_date, currency = get_price_on_date(fund_ticker, selected_date)
 
