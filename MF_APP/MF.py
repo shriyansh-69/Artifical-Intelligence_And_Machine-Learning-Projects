@@ -676,24 +676,11 @@ with st.expander("📈 Mutual Fund Analyzer For Selected Date's", expanded=False
     
 # --------------------------------------------------------------- Block-5 ------------------------------------------------------------------
 
-import streamlit as st
-import yfinance as yf
-import pandas as pd
-import matplotlib.pyplot as plt
-import io
-
-# ------------------- SESSION STATE -------------------
-
-if "df" not in st.session_state:
-    st.session_state.df = None
-
-if "analysis" not in st.session_state:
-    st.session_state.analysis = None
-
-# ------------------- FUNCTIONS -------------------
-
 def fetch_fund_data(ticker):
     data = yf.Ticker(ticker).history(period="10y")
+
+    if data.empty:
+        raise ValueError("No data returned from Yahoo Finance.")
 
     df = data.drop(columns=[c for c in ["Dividends", "Stock Splits"] if c in data.columns])
     df["Average"] = df[["Open", "High", "Low", "Close"]].mean(axis=1)
@@ -713,6 +700,9 @@ def price_analysis(df, buy_date, sell_date, price_type):
         return "❌ No trading data before Buy date."
     if pd.isna(sell_day):
         return "❌ No trading data before Sell date."
+
+    if buy_day > sell_day:
+        return "❌ Buy date must be before Sell date."
 
     buy_price = float(df.loc[buy_day, price_type])
     sell_price = float(df.loc[sell_day, price_type])
@@ -775,30 +765,34 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
 
     # ---------------- ANALYZE ----------------
     if st.button("Analyze", key="analyze_btn"):
+
         if not ticker:
             st.error("Please enter a valid ticker.")
             st.stop()
 
+        if buy_ts > sell_ts:
+            st.error("Buy date must be before Sell date.")
+            st.stop()
+
         try:
-            st.session_state.df = fetch_fund_data(ticker)
+            st.session_state.price_df = fetch_fund_data(ticker)
         except Exception as e:
             st.error(f"Data fetch failed: {e}")
             st.stop()
 
-        st.session_state.analysis = price_analysis(
-            st.session_state.df, buy_ts, sell_ts, price_type
+        st.session_state.analysis_result = price_analysis(
+            st.session_state.price_df, buy_ts, sell_ts, price_type
         )
 
-        if isinstance(st.session_state.analysis, str):
-            st.error(st.session_state.analysis)
-            st.session_state.analysis = None
+        if isinstance(st.session_state.analysis_result, str):
+            st.error(st.session_state.analysis_result)
+            st.session_state.analysis_result = None
             st.stop()
 
-        analysis = st.session_state.analysis
+        analysis = st.session_state.analysis_result
 
         st.success(analysis["status"])
 
-        # Market closed info
         if analysis["requested_buy"].date() != analysis["actual_buy"].date():
             st.info(
                 f"ℹ️ Market closed on {analysis['requested_buy'].date()}, "
@@ -827,7 +821,6 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
 
         st.write(f"ROI: {analysis['roi']:.2f}%")
 
-        # Download analysis CSV
         out_df = pd.DataFrame([analysis])
         out_df["actual_buy"] = out_df["actual_buy"].dt.date
         out_df["actual_sell"] = out_df["actual_sell"].dt.date
@@ -844,14 +837,15 @@ with st.expander("🧮 Profit Or Loss Analyzer", expanded=False):
 
     # ---------------- PLOT ----------------
     if st.button("Show Plot", key="plot_btn"):
-        if st.session_state.analysis is None:
+
+        if st.session_state.analysis_result is None:
             st.error("Please run analysis first.")
             st.stop()
 
         fig = plot_price(
-            st.session_state.df,
-            st.session_state.analysis["actual_buy"],
-            st.session_state.analysis["actual_sell"],
+            st.session_state.price_df,
+            st.session_state.analysis_result["actual_buy"],
+            st.session_state.analysis_result["actual_sell"],
             price_type
         )
 
