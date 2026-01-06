@@ -65,4 +65,4 @@ if st.button("Predict"):
             st.success(f"✅ NOT SPAM\nConfidence: {probability[0]*100:.2f}%")
 
 
-st.write(f"### Model Accuracy: {accuracy*100:.2f}%")
+# st.write(f"### Model Accuracy: {accuracy*100:.2f}%")
