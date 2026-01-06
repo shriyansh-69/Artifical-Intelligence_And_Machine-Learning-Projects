@@ -1,4 +1,4 @@
-# Mutual Fund Price Prediction Web App
+# AI-Driven Investment Decision Support System (LSTM + Cloud Deployment)
 
 A **Streamlit-based** interactive web application that **predicts** future mutual fund NAVs using **historical data** and **deep learning**, and allows users to **analyze** past performance, ROI, and trading signals.
 
