@@ -10,8 +10,8 @@ from sklearn.metrics import accuracy_score
 @st.cache_data
 def load_data():
     import os
-    base_dir = os.path.dirname(__file__)  # folder where spam.py lives
-    csv_path = os.path.join(base_dir, "spam.csv")  # full path to spam.csv
+    base_dir = os.path.dirname(__file__)  
+    csv_path = os.path.join(base_dir, "spam.csv")  
     df = pd.read_csv(csv_path, encoding="latin-1")
     df = df[['v1', 'v2']]
     df.columns = ['label', 'message']
