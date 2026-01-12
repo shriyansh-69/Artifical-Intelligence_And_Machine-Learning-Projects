@@ -1,54 +1,70 @@
-import pandas as pd
+import pandas as pd 
 import streamlit as st
-
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.naive_bayes import MultinomialNB
+import tensorflow as tf
+from tensorflow.keras.layers import TextVectorization, Embedding, Dense, Dropout # pyright: ignore[reportMissingImports]
+from tensorflow.keras.models import Sequential# pyright: ignore[reportMissingImports]
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-
+import os
 
 @st.cache_data
 def load_data():
-    import os
-    base_dir = os.path.dirname(__file__)  
-    csv_path = os.path.join(base_dir,"spam.csv")  
+    base_dir = os.path.dirname(__file__)
+    csv_path = os.path.join(base_dir, "spam.csv")
+
     df = pd.read_csv(csv_path, encoding="latin-1")
-    df = df[['v1', 'v2']]
-    df.columns = ['label', 'message']
-    df['label'] = df['label'].map({'ham': 0, 'spam': 1})
+    df = df.iloc[:, :2]
+    df.columns = ['label','message']
+    df['label'] = df['label'].map({'ham': 0, 'spam' : 1})
     return df
 
 
-@st.cache_resource
+# Model Building 
+
 def train_model(df):
-    X = df['message']
-    y = df['label']
+    x = df['message'].values
+    y = df['label'].values
 
-    vectorizer = TfidfVectorizer(
-        stop_words='english',
-        max_features=3000
+    x_train,x_test,y_train,y_test = train_test_split(
+        x,y , test_size= 0.2, random_state= 42
+        )
+    
+
+    Vectorizer = TextVectorization(
+        max_tokens = 5000,
+        output_sequence_length = 100,
+        standardize = 'lower_and_strip_punctuation'
     )
-    X_vec = vectorizer.fit_transform(X)
+    
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_vec, y, test_size=0.2, random_state=42
+    Vectorizer.adapt(x_train)
+
+    model = Sequential([
+        Vectorizer,
+        Embedding(5000,64),
+        Dense(32,activation='relu'),
+        Dropout(0.3),
+        Dense(1,activation='sigmoid')
+    ])
+
+
+    model.compile(
+        optimizer='adam',
+        loss='binary_crossentropy',
+        metrics=['accuracy']
     )
 
-    model = MultinomialNB()
-    model.fit(X_train, y_train)
+    loss, accuracy = model.evaluate(x_test,y_test,verbose = 0)
 
-    accuracy = accuracy_score(y_test, model.predict(X_test))
-
-    return vectorizer, model, accuracy
+    return model,accuracy
 
 
-st.title("📧 Spam Detection App")
-st.write("Check whether a message is **Spam** or **Not Spam**")
+## Interface 
+
+st.title("📧 Spam Detection App (TensorFlow)")
+st.write("Deep Learning based Spam Classifier")
 
 df = load_data()
-vectorizer, model, accuracy = train_model(df)
-
-# User Input
+model, accuracy = train_model(df)
 
 user_input = st.text_area("Enter Message")
 
@@ -58,14 +74,9 @@ if st.button("Predict"):
     elif len(user_input.split()) < 3:
         st.warning("Please enter a longer message")
     else:
-        input_vec = vectorizer.transform([user_input])
-        prediction = model.predict(input_vec)[0]
-        probability = model.predict_proba(input_vec)[0]
+        prob = model.predict([user_input])[0][0]
 
-        if prediction == 1:
-            st.error(f"🚨 SPAM\nConfidence: {probability[1]*100:.2f}%")
+        if prob > 0.5:
+            st.error(f"🚨 SPAM\nConfidence: {prob*100:.2f}%")
         else:
-            st.success(f"✅ NOT SPAM\nConfidence: {probability[0]*100:.2f}%")
-
-
-# st.write(f"### Model Accuracy: {accuracy*100:.2f}%")
+            st.success(f"✅ NOT SPAM\nConfidence: {(1-prob)*100:.2f}%")
