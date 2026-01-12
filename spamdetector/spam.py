@@ -1,10 +1,12 @@
-import pandas as pd 
+import pandas as pd
 import streamlit as st
 import tensorflow as tf
-from tensorflow.keras.layers import TextVectorization, Embedding, Dense, Dropout # pyright: ignore[reportMissingImports]
-from tensorflow.keras.models import Sequential# pyright: ignore[reportMissingImports]
+from tensorflow.keras.layers import TextVectorization,Embedding,Dense,Dropout,GlobalAveragePooling1D#pyright: ignore[reportMissingImports]
+from tensorflow.keras.models import Sequential#pyright: ignore[reportMissingImports]
 from sklearn.model_selection import train_test_split
 import os
+
+
 
 @st.cache_data
 def load_data():
@@ -12,71 +14,82 @@ def load_data():
     csv_path = os.path.join(base_dir, "spam.csv")
 
     df = pd.read_csv(csv_path, encoding="latin-1")
+
+    # Keep only required columns
     df = df.iloc[:, :2]
-    df.columns = ['label','message']
-    df['label'] = df['label'].map({'ham': 0, 'spam' : 1})
+    df.columns = ["label", "message"]
+
+    df.dropna(inplace=True)
+    df["label"] = df["label"].map({"ham": 0, "spam": 1})
+
     return df
 
 
-# Model Building 
-
+@st.cache_resource
 def train_model(df):
-    x = df['message'].values
-    y = df['label'].values
+    x = df["message"].values
+    y = df["label"].values
 
-    x_train,x_test,y_train,y_test = train_test_split(
-        x,y , test_size= 0.2, random_state= 42
-        )
-    
-
-    Vectorizer = TextVectorization(
-        max_tokens = 5000,
-        output_sequence_length = 100,
-        standardize = 'lower_and_strip_punctuation'
+    x_train, x_test, y_train, y_test = train_test_split(
+        x, y, test_size=0.2, random_state=42
     )
-    
 
-    Vectorizer.adapt(x_train)
+    vectorizer = TextVectorization(
+        max_tokens=5000,
+        output_sequence_length=100,
+        standardize="lower_and_strip_punctuation"
+    )
+
+    vectorizer.adapt(x_train)
 
     model = Sequential([
-        Vectorizer,
-        Embedding(5000,64),
-        Dense(32,activation='relu'),
+        vectorizer,
+        Embedding(5000, 64),
+        GlobalAveragePooling1D(),
+        Dense(32, activation="relu"),
         Dropout(0.3),
-        Dense(1,activation='sigmoid')
+        Dense(1, activation="sigmoid")
     ])
 
-
     model.compile(
-        optimizer='adam',
-        loss='binary_crossentropy',
-        metrics=['accuracy']
+        optimizer="adam",
+        loss="binary_crossentropy",
+        metrics=["accuracy"]
     )
 
-    loss, accuracy = model.evaluate(x_test,y_test,verbose = 0)
+    model.fit(
+        x_train,
+        y_train,
+        epochs=5,
+        batch_size=32,
+        validation_data=(x_test, y_test),
+        verbose=0
+    )
 
-    return model,accuracy
+    loss, accuracy = model.evaluate(x_test, y_test, verbose=0)
 
+    return model, accuracy
 
-## Interface 
+# InterFace
 
-st.title("📧 Spam Detection App (TensorFlow)")
-st.write("Deep Learning based Spam Classifier")
+st.title("Spam Detection App")
+st.write("Deep Learning based Spam Classifier using TensorFlow")
 
 df = load_data()
 model, accuracy = train_model(df)
 
-user_input = st.text_area("Enter Message")
+st.write(f"Model Accuracy: {accuracy * 100:.2f}%")
+
+user_input = st.text_area("Enter message text")
 
 if st.button("Predict"):
-    if user_input.strip() == "":
-        st.warning("Please enter a message")
-    elif len(user_input.split()) < 3:
-        st.warning("Please enter a longer message")
-    else:
-        prob = model.predict([user_input])[0][0]
+    if not user_input or len(user_input.strip()) < 3:
+        st.warning("Please enter a valid message")
+        st.stop()
 
-        if prob > 0.5:
-            st.error(f"🚨 SPAM\nConfidence: {prob*100:.2f}%")
-        else:
-            st.success(f"✅ NOT SPAM\nConfidence: {(1-prob)*100:.2f}%")
+    probability = model.predict([user_input])[0][0]
+
+    if probability > 0.5:
+        st.error(f"Prediction: SPAM\nConfidence: {probability * 100:.2f}%")
+    else:
+        st.success(f"Prediction: NOT SPAM\nConfidence: {(1 - probability) * 100:.2f}%")
