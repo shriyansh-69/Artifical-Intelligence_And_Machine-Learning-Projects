@@ -71,12 +71,12 @@ def train_model(df):
     return model, vectorizer, accuracy
 
 
-st.title("Spam Detection App")
+st.title(" 📧 Spam Detection App")
 
 df = load_data()
 model, vectorizer, accuracy = train_model(df)
 
-st.write(f"Model Accuracy: {accuracy * 100:.2f}%")
+# st.write(f"Model Accuracy: {accuracy * 100:.2f}%")
 
 user_input = st.text_area("Enter message")
 
