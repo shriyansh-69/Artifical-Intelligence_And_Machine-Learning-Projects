@@ -7,10 +7,11 @@ from nltk.stem import WordNetLemmatizer
 import tensorflow as tf
 
 lemmatizer = WordNetLemmatizer()
-nltk.download("punkt")
+nltk.download('punkt_tab')
 nltk.download("wordnet")
 
-path = r"C:\Users\shriyansh\OneDrive\Desktop\Machine_Learning_Project's\AI-Customer-Support-Chatbot\intent.json"
+
+path = "intent.json"
 
 with open(path, "r", encoding= "utf-8") as f:
     intents = json.loads(f.read())
@@ -70,6 +71,11 @@ model.add(tf.keras.layers.Dense(len(train_y[0]), activation="softmax"))
 sgd = tf.keras.optimizers.SGD(learning_rate = 0.01, momentum = 0.09, nesterov = True)
 
 
+model.compile(
+    loss="categorical_crossentropy",
+    optimizer=sgd,
+    metrics=["accuracy"]
+)
 
 
 
@@ -78,8 +84,9 @@ hist = model.fit(
 )
 
 
+model.save("Chatbot_Model.keras")
+print("MODEL Saved")
 
-model.save("Chatbot_Model.h5")
-if hist is not None:
-    print("Model Trained and Saved Successfully")
+
+
 
