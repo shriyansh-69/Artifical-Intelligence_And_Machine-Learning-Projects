@@ -2,12 +2,13 @@ import random
 import pickle
 import json
 import numpy as np
-import pandas as pd
 import nltk 
 from nltk.stem import WordNetLemmatizer
 import tensorflow as tf
 
 lemmatizer = WordNetLemmatizer()
+nltk.download("punkt")
+nltk.download("wordnet")
 
 path = r"C:\Users\shriyansh\OneDrive\Desktop\Machine_Learning_Project's\AI-Customer-Support-Chatbot\intent.json"
 
@@ -28,7 +29,7 @@ for intent in intents["intents"]:
         if intent["tag"] not in classes:
             classes.append(intent["tag"])
 
-words = [lemmatizer.lemmatize(word) for word in words if word not in  ignoreletters]
+words = [lemmatizer.lemmatize(word.lower()) for word in words if word not in ignoreletters]
 words = sorted(set(words))
 classes = sorted(set(classes))
 
@@ -69,7 +70,7 @@ model.add(tf.keras.layers.Dense(len(train_y[0]), activation="softmax"))
 sgd = tf.keras.optimizers.SGD(learning_rate = 0.01, momentum = 0.09, nesterov = True)
 
 
-model.complie(loss = "categorical_crossentropy",optimizer=sgd,metrics=["accuracy"])
+
 
 
 hist = model.fit(
