@@ -77,5 +77,7 @@ hist = model.fit(
 
 
 
-
+model.save("Chatbot_Model.h5",hist)
+if hist is not None:
+    print("Model Downloaded Successfully")
 
