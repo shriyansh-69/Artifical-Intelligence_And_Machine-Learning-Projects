@@ -1,0 +1,752 @@
+{
+  "intents": [
+
+
+    {
+      "tag": "bot_identity",
+      "patterns": [
+        "Who are you",
+        "What are you",
+        "Tell me about yourself",
+        "What is this chatbot"
+      ],
+      "responses": [
+        "I am an AI-powered fitness assistant.",
+        "I help with workouts, diet, and fitness guidance.",
+        "I'm your personal fitness chatbot 💪"
+      ]
+    },
+    {
+      "tag": "bot_purpose",
+      "patterns": [
+        "What can you do",
+        "How can you help me",
+        "What help do you provide",
+        "Your purpose"
+      ],
+      "responses": [
+        "I help with workouts, diet, supplements, and motivation.",
+        "I guide beginners to advanced fitness levels.",
+        "I provide fitness knowledge and guidance."
+      ]
+    },
+    {
+      "tag": "creator_info",
+      "patterns": [
+        "Who created you",
+        "Who made you",
+        "Who is your creator",
+        "Your creator name"
+      ],
+      "responses": [
+        "I was created by Shriyansh Tiwari 💪",
+        "My creator is Shriyansh Tiwari, a fitness & tech enthusiast.",
+        "This chatbot was built by Shriyansh Tiwari."
+      ]
+    },
+    {
+      "tag": "data_source",
+      "patterns": [
+        "Where do you get your information",
+        "Your data source",
+        "How do you know fitness"
+      ],
+      "responses": [
+        "My responses are based on general fitness knowledge.",
+        "I use proven fitness principles and training concepts.",
+        "I am trained on fitness-related data."
+      ]
+    },
+    {
+      "tag": "medical_disclaimer",
+      "patterns": [
+        "Are you a doctor",
+        "Medical advice",
+        "Can you replace a trainer"
+      ],
+      "responses": [
+        "I am not a doctor or medical professional.",
+        "Always consult a professional for medical advice.",
+        "I provide general fitness guidance only."
+      ]
+    },
+    {
+      "tag": "limitations",
+      "patterns": [
+        "Your limitations",
+        "What you cannot do",
+        "Your weaknesses"
+      ],
+      "responses": [
+        "I cannot provide medical diagnoses.",
+        "I cannot replace professional trainers or doctors.",
+        "I provide guidance, not personalized medical plans."
+      ]
+    },
+    {
+      "tag": "feedback",
+      "patterns": [
+        "Give feedback",
+        "How to improve you",
+        "Report issue"
+      ],
+      "responses": [
+        "Your feedback helps improve me.",
+        "Feel free to suggest improvements.",
+        "Thanks for helping me get better!"
+      ]
+    },
+    {
+      "tag": "update_info",
+      "patterns": [
+        "Are you updated",
+        "How often are you updated",
+        "Latest version"
+      ],
+      "responses": [
+        "I receive updates to improve accuracy.",
+        "My knowledge improves over time.",
+        "I aim to stay relevant and helpful."
+      ]
+    },
+
+
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hello", "Hey", "Good morning", "Good evening", "What's up"],
+      "responses": [
+        "Hey! Ready to level up your fitness 💪",
+        "Hello! Let's work toward your fitness goals 🏋️",
+        "Hi! How can I help you today?"
+      ]
+    },
+
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "Goodbye", "See you later", "Exit", "Quit"],
+      "responses": [
+        "Stay strong! See you soon 👋",
+        "Goodbye! Consistency is everything 💯",
+        "Train hard and recover well!"
+      ]
+    },
+
+    {
+      "tag": "beginner_fitness",
+      "patterns": [
+        "I am a beginner",
+        "New to gym",
+        "Just starting fitness",
+        "First time workout"
+      ],
+      "responses": [
+        "Start with full-body workouts 3 days a week.",
+        "Focus on learning correct form before lifting heavy.",
+        "Consistency matters more than intensity at the start."
+      ]
+    },
+
+    {
+      "tag": "workout_plan",
+      "patterns": [
+        "Give me a workout plan",
+        "Gym routine",
+        "Training split",
+        "Weekly workout plan"
+      ],
+      "responses": [
+        "Push-Pull-Legs works great for most people.",
+        "Tell me your goal: muscle gain, fat loss, or strength.",
+        "How many days per week can you train?"
+      ]
+    },
+
+    {
+      "tag": "home_workout",
+      "patterns": [
+        "Workout at home",
+        "No gym workout",
+        "Bodyweight exercises",
+        "Home fitness plan"
+      ],
+      "responses": [
+        "Push-ups, squats, lunges, and planks are very effective.",
+        "You can build muscle at home with progressive overload.",
+        "Consistency matters more than equipment."
+      ]
+    },
+
+    {
+      "tag": "muscle_gain",
+      "patterns": [
+        "I want to gain muscle",
+        "Bulk up",
+        "Increase muscle size",
+        "Hypertrophy training"
+      ],
+      "responses": [
+        "Eat in a calorie surplus with enough protein.",
+        "Train each muscle group 2x per week.",
+        "Progressive overload is key for muscle growth."
+      ]
+    },
+
+    {
+      "tag": "fat_loss",
+      "patterns": [
+        "Lose weight",
+        "Burn fat",
+        "Cut fat",
+        "Reduce belly fat"
+      ],
+      "responses": [
+        "Fat loss requires a calorie deficit.",
+        "Strength training preserves muscle while cutting.",
+        "Cardio helps but diet is the main driver."
+      ]
+    },
+
+    {
+      "tag": "cardio",
+      "patterns": [
+        "Best cardio exercises",
+        "How much cardio",
+        "Running or cycling",
+        "HIIT workout"
+      ],
+      "responses": [
+        "HIIT is time-efficient for fat loss.",
+        "Steady-state cardio improves endurance.",
+        "Mix both cardio styles for best results."
+      ]
+    },
+
+    {
+      "tag": "strength_training",
+      "patterns": [
+        "Increase strength",
+        "Lift heavier",
+        "Powerlifting training",
+        "Get stronger"
+      ],
+      "responses": [
+        "Focus on compound lifts like squat, bench, and deadlift.",
+        "Lower reps with heavier weight improve strength.",
+        "Rest longer between heavy sets."
+      ]
+    },
+
+    {
+      "tag": "diet_plan",
+      "patterns": [
+        "Diet plan",
+        "What should I eat",
+        "Meal plan",
+        "Nutrition advice"
+      ],
+      "responses": [
+        "Base your diet on whole foods.",
+        "Balance carbs, protein, and fats.",
+        "Eat according to your fitness goal."
+      ]
+    },
+
+    {
+      "tag": "protein_intake",
+      "patterns": [
+        "How much protein",
+        "Protein intake per day",
+        "Protein requirement"
+      ],
+      "responses": [
+        "Consume 1.6–2.2g protein per kg body weight.",
+        "Spread protein evenly across meals.",
+        "Whole food protein is best."
+      ]
+    },
+
+    {
+      "tag": "vegetarian_diet",
+      "patterns": [
+        "Vegetarian protein",
+        "Veg diet for muscle",
+        "Plant protein sources"
+      ],
+      "responses": [
+        "Paneer, lentils, tofu, soy, and dairy are great.",
+        "Combine different plant proteins for better amino acids.",
+        "Track protein carefully on veg diets."
+      ]
+    },
+
+    {
+      "tag": "supplements",
+      "patterns": [
+        "Do I need supplements",
+        "Best supplements",
+        "Whey protein",
+        "Creatine"
+      ],
+      "responses": [
+        "Whey protein helps meet daily protein needs.",
+        "Creatine improves strength and muscle performance.",
+        "Supplements support diet, not replace it."
+      ]
+    },
+
+    {
+      "tag": "pre_workout",
+      "patterns": [
+        "Pre workout food",
+        "What to eat before workout",
+        "Pre workout meal"
+      ],
+      "responses": [
+        "Eat carbs + protein before training.",
+        "Avoid heavy fats before workouts.",
+        "Hydration is very important."
+      ]
+    },
+
+    {
+      "tag": "post_workout",
+      "patterns": [
+        "Post workout meal",
+        "What to eat after workout",
+        "Recovery food"
+      ],
+      "responses": [
+        "Protein helps muscle recovery.",
+        "Carbs help replenish glycogen.",
+        "Eat within 1–2 hours post workout."
+      ]
+    },
+
+    {
+      "tag": "rest_recovery",
+      "patterns": [
+        "Recovery time",
+        "How much rest",
+        "Muscle recovery"
+      ],
+      "responses": [
+        "Sleep 7–9 hours daily.",
+        "Rest muscles at least 48 hours.",
+        "Recovery improves performance."
+      ]
+    },
+
+    {
+      "tag": "injury_prevention",
+      "patterns": [
+        "Avoid injury",
+        "Workout pain",
+        "Joint pain"
+      ],
+      "responses": [
+        "Warm up before training.",
+        "Use proper form.",
+        "Do not ignore pain."
+      ]
+    },
+
+    {
+      "tag": "overtraining",
+      "patterns": [
+        "Training too much",
+        "Feeling exhausted",
+        "Overtraining symptoms"
+      ],
+      "responses": [
+        "Take deload weeks when needed.",
+        "Too much training slows progress.",
+        "Recovery is part of training."
+      ]
+    },
+
+    {
+      "tag": "motivation",
+      "patterns": [
+        "No motivation",
+        "Feeling lazy",
+        "Skip workout",
+        "Demotivated"
+      ],
+      "responses": [
+        "Discipline beats motivation 🔥",
+        "Small steps every day matter.",
+        "Your future self will thank you."
+      ]
+    },
+
+    {
+      "tag": "consistency",
+      "patterns": [
+        "Missed workouts",
+        "Not consistent",
+        "How to stay consistent"
+      ],
+      "responses": [
+        "Consistency matters more than perfection.",
+        "Stick to a routine you enjoy.",
+        "Build habits, not motivation."
+      ]
+    },
+
+    {
+      "tag": "sleep",
+      "patterns": [
+        "Sleep for muscle growth",
+        "How much sleep",
+        "Poor sleep"
+      ],
+      "responses": [
+        "Sleep directly affects muscle recovery.",
+        "7–9 hours is ideal.",
+        "Lack of sleep reduces performance."
+      ]
+    },
+
+    {
+      "tag": "hydration",
+      "patterns": [
+        "How much water",
+        "Hydration",
+        "Water intake"
+      ],
+      "responses": [
+        "Drink at least 3–4 liters daily.",
+        "Hydration improves strength and endurance.",
+        "Drink more if you sweat a lot."
+      ]
+    },
+
+    {
+      "tag": "plateau",
+      "patterns": [
+        "No progress",
+        "Fitness plateau",
+        "Stuck in gym"
+      ],
+      "responses": [
+        "Change training variables.",
+        "Increase or decrease volume.",
+        "Reassess nutrition and recovery."
+      ]
+    },
+
+    {
+  "tag": "advanced_training",
+  "patterns": [
+    "Advanced workout",
+    "Pro level training",
+    "High volume training",
+    "Advanced gym routine"
+  ],
+  "responses": [
+    "Advanced training requires proper recovery and nutrition.",
+    "Increase intensity techniques like drop sets and supersets.",
+    "Track volume and intensity carefully."
+  ]
+},
+{
+  "tag": "drop_sets",
+  "patterns": [
+    "What are drop sets",
+    "Drop set training",
+    "Use drop sets"
+  ],
+  "responses": [
+    "Drop sets increase muscle fatigue.",
+    "Reduce weight immediately after failure.",
+    "Best used in hypertrophy training."
+  ]
+},
+{
+  "tag": "supersets",
+  "patterns": [
+    "What are supersets",
+    "Superset workout",
+    "Superset exercises"
+  ],
+  "responses": [
+    "Supersets save time and increase intensity.",
+    "Pair opposing muscle groups.",
+    "Avoid heavy compounds in supersets."
+  ]
+},
+{
+  "tag": "giant_sets",
+  "patterns": [
+    "What are giant sets",
+    "Giant set workout"
+  ],
+  "responses": [
+    "Giant sets involve 3+ exercises back-to-back.",
+    "Used for muscle endurance and pump.",
+    "Requires good conditioning."
+  ]
+},
+{
+  "tag": "tempo_training",
+  "patterns": [
+    "Tempo reps",
+    "Slow negatives",
+    "Eccentric training"
+  ],
+  "responses": [
+    "Slow eccentrics increase muscle tension.",
+    "Tempo improves control and hypertrophy.",
+    "Use 3–4 second negatives."
+  ]
+},
+{
+  "tag": "mind_muscle_connection",
+  "patterns": [
+    "Mind muscle connection",
+    "Feel muscle working",
+    "Better muscle activation"
+  ],
+  "responses": [
+    "Focus on muscle contraction.",
+    "Use lighter weights if needed.",
+    "Control every rep."
+  ]
+},
+{
+  "tag": "training_frequency",
+  "patterns": [
+    "How often to train",
+    "Training frequency",
+    "Workout frequency"
+  ],
+  "responses": [
+    "Train each muscle 2 times per week.",
+    "Adjust frequency based on recovery.",
+    "More is not always better."
+  ]
+},
+{
+  "tag": "volume_vs_intensity",
+  "patterns": [
+    "Volume vs intensity",
+    "High reps vs heavy weight",
+    "Training volume"
+  ],
+  "responses": [
+    "Volume builds muscle size.",
+    "Intensity builds strength.",
+    "Balance both for best results."
+  ]
+},
+{
+  "tag": "warmup",
+  "patterns": [
+    "Warm up exercises",
+    "Pre workout warmup",
+    "How to warm up"
+  ],
+  "responses": [
+    "Warm up reduces injury risk.",
+    "Start with light cardio.",
+    "Use dynamic stretches."
+  ]
+},
+{
+  "tag": "cooldown",
+  "patterns": [
+    "Cool down workout",
+    "Post workout stretch",
+    "Stretching after gym"
+  ],
+  "responses": [
+    "Cooling down improves recovery.",
+    "Stretch tight muscles.",
+    "Helps reduce soreness."
+  ]
+},
+{
+  "tag": "stretching",
+  "patterns": [
+    "Stretching exercises",
+    "Flexibility training",
+    "Mobility workout"
+  ],
+  "responses": [
+    "Stretching improves range of motion.",
+    "Do mobility work regularly.",
+    "Avoid aggressive stretching when cold."
+  ]
+},
+{
+  "tag": "core_training",
+  "patterns": [
+    "Core workout",
+    "Abs training",
+    "Strengthen core"
+  ],
+  "responses": [
+    "Strong core improves stability.",
+    "Planks and leg raises are effective.",
+    "Train core 2–3 times weekly."
+  ]
+},
+{
+  "tag": "abs_visibility",
+  "patterns": [
+    "How to get abs",
+    "Visible abs",
+    "Six pack"
+  ],
+  "responses": [
+    "Abs are built in the gym and revealed in the kitchen.",
+    "Lower body fat percentage is key.",
+    "Consistency is required."
+  ]
+},
+{
+  "tag": "body_fat",
+  "patterns": [
+    "Body fat percentage",
+    "Reduce body fat",
+    "Fat percentage"
+  ],
+  "responses": [
+    "Calorie deficit reduces body fat.",
+    "Protein helps retain muscle.",
+    "Fat loss takes time."
+  ]
+},
+{
+  "tag": "metabolism",
+  "patterns": [
+    "Increase metabolism",
+    "Fast metabolism",
+    "Slow metabolism"
+  ],
+  "responses": [
+    "Muscle mass increases metabolism.",
+    "Protein has high thermic effect.",
+    "Stay active throughout the day."
+  ]
+},
+{
+  "tag": "cheat_meals",
+  "patterns": [
+    "Cheat meal",
+    "Cheat day",
+    "Unhealthy food"
+  ],
+  "responses": [
+    "Cheat meals should be planned.",
+    "Avoid turning cheat meals into cheat weeks.",
+    "Moderation is key."
+  ]
+},
+{
+  "tag": "tracking_progress",
+  "patterns": [
+    "Track progress",
+    "Fitness progress",
+    "How to measure results"
+  ],
+  "responses": [
+    "Track weight and measurements.",
+    "Progress photos help.",
+    "Strength gains indicate progress."
+  ]
+},
+{
+  "tag": "deload",
+  "patterns": [
+    "Deload week",
+    "Training break",
+    "Reduce volume"
+  ],
+  "responses": [
+    "Deload helps recovery.",
+    "Reduce volume by 40–50%.",
+    "Improves long-term progress."
+  ]
+},
+{
+  "tag": "cutting_phase",
+  "patterns": [
+    "Cutting phase",
+    "Fat loss phase",
+    "Cut diet"
+  ],
+  "responses": [
+    "Maintain protein during cut.",
+    "Strength training preserves muscle.",
+    "Avoid aggressive calorie cuts."
+  ]
+},
+{
+  "tag": "bulking_phase",
+  "patterns": [
+    "Bulking phase",
+    "Lean bulk",
+    "Mass gain phase"
+  ],
+  "responses": [
+    "Lean bulk minimizes fat gain.",
+    "Small calorie surplus works best.",
+    "Track weight weekly."
+  ]
+},
+{
+  "tag": "plate_load",
+  "patterns": [
+    "Add more weight",
+    "Plate loading",
+    "Progressive overload"
+  ],
+  "responses": [
+    "Increase weight gradually.",
+    "Even small increases matter.",
+    "Track lifts consistently."
+  ]
+},
+{
+  "tag": "form_check",
+  "patterns": [
+    "Correct form",
+    "Exercise technique",
+    "Lifting form"
+  ],
+  "responses": [
+    "Proper form prevents injury.",
+    "Use mirrors or video feedback.",
+    "Ego lifting slows progress."
+  ]
+},
+{
+  "tag": "gym_anxiety",
+  "patterns": [
+    "Gym anxiety",
+    "Scared of gym",
+    "Gym fear"
+  ],
+  "responses": [
+    "Everyone starts somewhere.",
+    "Focus on your own progress.",
+    "Confidence grows with time."
+  ]
+},
+{
+  "tag": "age_fitness",
+  "patterns": [
+    "Fitness after 30",
+    "Fitness after 40",
+    "Age and workouts"
+  ],
+  "responses": [
+    "Fitness is possible at any age.",
+    "Recovery becomes more important.",
+    "Consistency beats intensity."
+  ]
+}
+
+  ]
+}
