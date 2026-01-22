@@ -65,4 +65,4 @@ model.add(tf.keras.layers.Dropout(0.5))
 model.add(tf.keras.layers.Dense(len(train_y[0]),activation = "Softmax"))
 
 
-# sgd = tf.keras.optimizer.SGD()
+sgd = tf.keras.optimizers.SGD(learning_rate = 0.01, momentum = 0.09, nesterov = True)
