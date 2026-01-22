@@ -24,7 +24,7 @@ for intent in intents["intents"]:
     for pattern in intent["patterns"]:
         WordList = nltk.word_tokenize(pattern)
         words.extend(WordList)
-        documents.append(WordList,intent["tag"])
+        documents.append((WordList, intent["tag"]))
         if intent["tag"] not in classes:
             classes.append(intent["tag"])
 
@@ -58,17 +58,18 @@ train_y = training[:,len(words) :]
 
 
 model = tf.keras.Sequential()
-model.add(tf.keras.layers.Dense(128,input_shape = (len(train_x[0]),), activation = "relu"))
+model.add(tf.keras.layers.Dense(128, input_shape=(len(train_x[0]),), activation="relu"))
 model.add(tf.keras.layers.Dropout(0.5))
-model.add(tf.keras.layers.Dense(64,activation = "relu"))
+model.add(tf.keras.layers.Dense(64, activation="relu"))
 model.add(tf.keras.layers.Dropout(0.5))
-model.add(tf.keras.layers.Dense(len(train_y[0]),activation = "Softmax"))
+model.add(tf.keras.layers.Dense(len(train_y[0]), activation="softmax"))
+
 
 
 sgd = tf.keras.optimizers.SGD(learning_rate = 0.01, momentum = 0.09, nesterov = True)
 
 
-model.complie(loss = "categorical_crossentropy",optimizers = sgd, metrics = ["accuracy"])
+model.complie(loss = "categorical_crossentropy",optimizer=sgd,metrics=["accuracy"])
 
 
 hist = model.fit(
@@ -77,7 +78,7 @@ hist = model.fit(
 
 
 
-model.save("Chatbot_Model.h5",hist)
+model.save("Chatbot_Model.h5")
 if hist is not None:
-    print("Model Downloaded Successfully")
+    print("Model Trained and Saved Successfully")
 
