@@ -66,3 +66,6 @@ model.add(tf.keras.layers.Dense(len(train_y[0]),activation = "Softmax"))
 
 
 sgd = tf.keras.optimizers.SGD(learning_rate = 0.01, momentum = 0.09, nesterov = True)
+
+
+model.complie(loss = "categorical_crossentropy",optimizers = sgd, epochs = 250, batch_size = 5, metrics = ["accuracy"])
