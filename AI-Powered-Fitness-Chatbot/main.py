@@ -53,5 +53,16 @@ for document in documents:
 random.shuffle(training)
 training = np.array(training)
 
-train_x = training[:, :len(words)]
-train_y = training[:,  len(words): ]
+train_x = training[:,: len(words)]
+train_y = training[:,len(words) :]
+
+
+model = tf.keras.Sequential()
+model.add(tf.keras.layers.Dense(128,input_shape = (len(train_x[0]),), activation = "relu"))
+model.add(tf.keras.layers.Dropout(0.5))
+model.add(tf.keras.layers.Dense(64,activation = "relu"))
+model.add(tf.keras.layers.Dropout(0.5))
+model.add(tf.keras.layers.Dense(len(train_y[0]),activation = "Softmax"))
+
+
+# sgd = tf.keras.optimizer.SGD()
