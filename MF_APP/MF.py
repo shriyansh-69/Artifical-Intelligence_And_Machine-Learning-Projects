@@ -29,7 +29,7 @@ from sklearn.metrics import mean_squared_error
 # Deep Learning Library
 from tensorflow.keras.models import Sequential # pyright: ignore[reportMissingImports]
 from tensorflow.keras.layers import LSTM, Dropout, TimeDistributed, Dense,Input, Reshape # pyright: ignore[reportMissingImports]
-from tensorflow.keras.callbacks import EarlyStopping  # pyright: ignore[reportMissingImports]S
+from tensorflow.keras.callbacks import EarlyStopping  # pyright: ignore[reportMissingImports]
 import tensorflow as tf
 
 # Data Visulization
