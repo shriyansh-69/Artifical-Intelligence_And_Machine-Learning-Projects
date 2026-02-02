@@ -2,7 +2,7 @@
 
 A **Streamlit-based** interactive web application that **predicts** future mutual fund NAVs using **historical data** and **deep learning**, and allows users to **analyze** past performance, ROI, and trading signals.
 
-🌐 **Live Demo:** [Mutual Fund Price Prediction Model](https://mutualfundpricepredictionmodel.streamlit.app/)
+🌐 **Live Demo:** [Mutual Fund Price Prediction Model](https://mutualfundpricepredictionmodel-nzxuk2vbfxhmnwibuk7dnu.streamlit.app/)
 
 ---
 
